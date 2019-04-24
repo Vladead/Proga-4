@@ -7,6 +7,7 @@
 
 #include "BlocksList.h"
 
+#pragma pack(push, 1)
 class List1 {
 public:
     BlocksList *line;
@@ -21,6 +22,6 @@ public:
         delete line;
     }
 };
-
+#pragma pack(pop)
 
 #endif //PROGA_4_LIST1_H

@@ -28,7 +28,8 @@ List1* Intersection(Form &form1, Form &form2, FormBlock &formBlock) {
     {
         if(form1.current->symbols_in_line == form2.current->symbols_in_line)
         {
-
+            CopyNodeFromList(result_list, form1);
+            CopyNodeFromList(result_list, form2);
             k1++;
             k2++;
             form1.current = form1.current->next;
@@ -46,6 +47,56 @@ List1* Intersection(Form &form1, Form &form2, FormBlock &formBlock) {
     }
 
     return result_list.head;
+}
+
+void CopyNodeFromList(Form &result_list, Form &list_form_file) {
+    FormBlock tempFormBlock;
+    tempFormBlock.current = list_form_file.current->line;
+    auto temp = new List1;
+    int j = 0, k = 0, m = 0;
+    for(int i = 0; i < BlocksInLine(list_form_file.current->symbols_in_line); i++) {
+        auto temp1 = new BlocksList;
+        temp1->block = new LineWithMarker;
+        temp1->block->symbols = new char[temp1->max_symbols_in_block];
+        for(int h = 0; h <= temp1->max_symbols_in_block; h++)
+            temp1->block->symbols[h] = 0;
+        k = 0;
+        m = 0;
+        if(list_form_file.current->symbols_in_line - j == 1 &&
+        list_form_file.current->symbols_in_line % 5 == 0) { // Для записи только одного маркер
+            j += 2;
+        }
+        for(; k < temp1->max_symbols_in_block && j < list_form_file.current->symbols_in_line; j++) {
+            temp1->block->symbols[k] = tempFormBlock.current->block->symbols[m];
+            k++;
+            m++;
+            if(m >= 5) {
+                tempFormBlock.current = tempFormBlock.current->next;
+            }
+            if(j + 1 >= list_form_file.current->symbols_in_line) {
+                break;
+            }
+        }
+        if(tempFormBlock.head != nullptr) {
+            tempFormBlock.last->next = temp1;
+            tempFormBlock.last = tempFormBlock.last->next;
+        } else {
+            tempFormBlock.head = temp1;
+            temp->line = temp1;
+            tempFormBlock.last = tempFormBlock.head;
+        }
+    }
+    tempFormBlock.last->block->symbols[k] = tempFormBlock.last->block->Marker;
+    tempFormBlock.head = nullptr;
+    tempFormBlock.last = nullptr;
+
+    if(result_list.head != nullptr) {
+        result_list.last->next = temp;
+        result_list.last = result_list.last->next;
+    } else {
+        result_list.head = temp;
+        result_list.last = result_list.head;
+    }
 }
 
 void getting_info_from_file1(Form &form, FormBlock &formBlock, int lineCountFromInput) {

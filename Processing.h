@@ -8,6 +8,8 @@
 #include "Form.h"
 #include "FormBlock.h"
 
+List1* Intersection(Form &form1, Form &form2, FormBlock &formBlock);
+void CopyNodeFromList(Form &result_list, Form &list_form_file);
 void getting_info_from_file1(Form &form, FormBlock &formBlock, int lineCountFromInput);
 void getting_info_from_file2(Form &form, FormBlock &formBlock, int lineCountFromInput);
 void InputOneLine(Form &form, FormBlock &formBlock, int symbols_count, int blocks_count, const char* transit_line);
