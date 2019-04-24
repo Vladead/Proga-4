@@ -16,6 +16,10 @@ int main() {
     getting_info_from_file1(form1, formBlock, lineCountFromInput1);
     getting_info_from_file2(form2, formBlock, lineCountFromInput2);
     result_list.head = Intersection(form1, form2, formBlock);
+    PrintForm(form1, form2, result_list);
+    DeleteList(form1);
+    DeleteList(form2);
+    DeleteList(result_list);
 
     return 0;
 }

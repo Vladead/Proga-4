@@ -18,5 +18,7 @@ int LineCount2();
 int BlocksInLine(int symbols_count);
 int SymbolsCount(std::fstream &input_file, char temp);
 bool CheckFile();
+void PrintForm(Form &form1, Form &form2, Form &result_list);
+void DeleteList(Form &form);
 
 #endif //PROGA_4_PROCESSING_H

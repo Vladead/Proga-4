@@ -270,8 +270,6 @@ int SymbolsCount(fstream &input_file, char temp) {
     return symbols_count;
 }
 
-
-
 bool CheckFile() {
     //----------------------------------------------------------------------------------------------------Проверка файла
     fstream InputFile1;
@@ -327,20 +325,73 @@ bool CheckFile() {
     return false;
 }
 
-void PrintForm(Form &form) { // Надо дописать
+void PrintForm(Form &form1, Form &form2, Form &result_list) { // Надо дописать
     std::fstream output_file;
     output_file.open("output_file.txt", std::ios::out);
 
-//    auto temp = form.head;
-//    while(temp != nullptr) {
-//        for(int i = 0; temp->Inf.symbols[i] != temp->Inf.Marker; i++) {
-//            output_file << temp->Inf.symbols[i];
-//        }
-//        temp = temp->next;
-//        if(temp != nullptr)
-//            output_file << "  --->" << std::endl;
-//        else
-//            output_file << "  --->nullptr";
-//    }
+    auto temp = form1.head;
+    auto temp1 = form1.head->line;
+    output_file << "Первый список: " << endl;
+    while(temp != nullptr) {
+        for(int i = 0; temp1->block->symbols[i] != temp1->block->Marker; i++) {
+            output_file << temp1->block->symbols[i];
+            if(i == 4) {
+                temp1 = temp1->next;
+                i = -1;
+            }
+        }
+        output_file << endl;
+        temp = temp->next;
+        if(temp != nullptr)
+            temp1 = temp->line;
+    }
+
+    output_file << endl;
+    output_file << "Второй список: " << endl;
+    temp = form2.head;
+    temp1 = form2.head->line;
+    while(temp != nullptr) {
+        for(int i = 0; temp1->block->symbols[i] != temp1->block->Marker; i++) {
+            output_file << temp1->block->symbols[i];
+            if(i == 4) {
+                temp1 = temp1->next;
+                i = -1;
+            }
+        }
+        output_file << endl;
+        temp = temp->next;
+        if(temp != nullptr)
+            temp1 = temp->line;
+    }
+
+    output_file << endl;
+    output_file << "Результирующий список: " << endl;
+    temp = result_list.head;
+    temp1 = result_list.head->line;
+    while(temp != nullptr) {
+        for(int i = 0; temp1->block->symbols[i] != temp1->block->Marker; i++) {
+            output_file << temp1->block->symbols[i];
+            if(i == 4) {
+                temp1 = temp1->next;
+                i = -1;
+            }
+        }
+        output_file << endl;
+        temp = temp->next;
+        if(temp != nullptr)
+            temp1 = temp->line;
+    }
+
     output_file.close();
+}
+
+void DeleteList(Form &form) {
+    while(form.head != nullptr) {
+        form.current = form.head->next;
+        delete form.head;
+        form.head = form.current;
+    }
+    delete form.head;
+    delete form.current;
+    form.last = nullptr;
 }
